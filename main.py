@@ -17,7 +17,8 @@ def setup():
 
 @router.get("/")
 def order(request: Request):
-    return templates.TemplateResponse('order.html', context={"request": request})
+    return templates.TemplateResponse('index.html', context={"request": request})
+
 
 @router.post("/create-checkout-session")
 def place_order(request: Request,
@@ -29,6 +30,7 @@ def place_order(request: Request,
     except Exception as e:
         raise HTTPException(str(e))
     return RedirectResponse(checkout["url"], status_code=303)
+
 
 @router.get('/success')
 def success_payment_order(request: Request):

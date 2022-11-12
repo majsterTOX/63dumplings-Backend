@@ -212,4 +212,5 @@ $RECYCLE.BIN/
 
 # End of https://www.toptal.com/developers/gitignore/api/windows,python,dotenv,visualstudiocode
 
-.static
+fintech.__pycache__
+fintech.env
