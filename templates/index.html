@@ -5,25 +5,46 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>63dumplings</title>
-    <link rel="stylesheet" href="{{ url_for('static', path='style.css') }}">
+    <link href="{{ url_for('static', path='/style.css') }}" rel="stylesheet" />
+
+    <script>
+        document.getElementById("checkout-button").addEventListener("click", grabUserData())
+        
+        function grabUserData(){
+            var form = document.querySelector('.order-form')
+            var name = form.querySelector("#name").value
+            var email = form.querySelector("#email").value
+            var phone = form.querySelector("#phone").value
+            var quantity = form.querySelector("#quantity").value
+
+            localStorage.setItem("name", name)
+            localStorage.setItem("email", email)
+            localStorage.setItem("phone", phone)
+            localStorage.setItem("quantity", quantity)
+        }
+    </script>
 </head>
 <body>
-    <form action="/create-checkout-session" method="post">
+    <form action="/checkout" method="post" class="order-form">
         <h1>Pierogi</h1>
         <div>
             <label for="name">Imię:</label>
-            <input type="text" id="name" name="name" required>
+            <input type="text" id="name" name="name" placeholder="tommy shelby" required>
         </div>
         <div>
             <label for="email">Email:</label>
-            <input type="email" id="email" name="email" required>
+            <input type="email" id="email" name="email" placeholder="tommy.shelby@gmail.com" required>
+        </div>
+        <div>
+            <label for="phone">Telefon:</label>
+            <input type="text" id="phone" name="phone" placeholder="+48 123 456 789" required>
         </div>
         <div>
             <label for="quantity">Ilość:</label>
-            <input type="text" id="quantity" name="quantity" required>
+            <input type="number" id="quantity" name="quantity" placeholder="40" min="10" max="200" required>
         </div>
         <div>
-            <button type="submit" id="checkout-button">order</button>
+            <button type="submit" id="checkout-button" onclick="grabUserData()">ORDER</button>
         </div>
     </form>
     </main>

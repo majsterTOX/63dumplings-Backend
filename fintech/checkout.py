@@ -2,7 +2,6 @@ import stripe
 import os
 from dotenv import load_dotenv
 from fastapi import HTTPException
-from fintech.product import Product
 
 load_dotenv()
 
@@ -14,14 +13,11 @@ stripe.api_version = os.getenv("STRIPE_API_VERSION")
 
 def create_checkout_session(order_quantity: int):
     try:
-        dumplings = Product(
-            name="Pierogi Ruskie", price_id=DUMPLINGS_PRICE_ID, quantity=order_quantity)
-
         checkout_session = stripe.checkout.Session.create(
             line_items=[
                 {
-                    'price': dumplings.price_id,
-                    'quantity': dumplings.quantity
+                    'price': DUMPLINGS_PRICE_ID,
+                    'quantity': order_quantity
                 }
             ],
             mode='payment',
